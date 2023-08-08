@@ -6,6 +6,12 @@ ruby "3.1.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 
+#test
+gem 'rails-controller-testing'
+gem 'minitest-reporters'
+gem 'guard'
+gem 'guard-minitest'
+
 #BCrypt
 gem 'bcrypt', '~> 3.1.7'
 
