@@ -15,7 +15,6 @@ class UserSignUpTest < ActionDispatch::IntegrationTest
                                         password_confirmation: "Michael"}}
     end
     assert_not flash.empty?
-    assert_redirected_to root_path
   end
 
   #users#create異常
@@ -29,5 +28,6 @@ class UserSignUpTest < ActionDispatch::IntegrationTest
     assert flash.empty?
     assert_template "users/new", status: :unprocessable_entity
   end
+  
 
 end

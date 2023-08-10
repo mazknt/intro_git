@@ -13,7 +13,7 @@ gem 'guard'
 gem 'guard-minitest'
 
 #BCrypt
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.16'
 
 #bootstrap
 gem "bootstrap-sass"

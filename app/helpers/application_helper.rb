@@ -6,4 +6,6 @@ module ApplicationHelper
             "Sample App Second"
         end
     end
+
+    
 end
