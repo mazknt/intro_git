@@ -5,7 +5,7 @@ module SessionsHelper
 
     def log_in(user, remember_me) 
         remember(user) if remember_me == "1"
-        session[:user_id] = user.email
+        session[:user_id] = user.id
     end
 
     def logged_in?
@@ -14,17 +14,18 @@ module SessionsHelper
 
     def remember(user)
         user.remember
-        cookies.permanent[:user_id] = user.email
+        cookies.permanent.encrypted[:user_id] = user.id
         cookies.permanent[:remember_token] = user.remember_token
     end
 
     def current_user
         #log_inしていたら適切なcurrent_userを返す
         if !session[:user_id].nil?
-            user = User.find_by(email: session[:user_id])
+            user = User.find_by(id: session[:user_id])
             user
         elsif !cookies[:user_id].nil?
-            user = User.find_by(email: cookies[:user_id])
+            user_id = cookies.encrypted[:user_id]
+            user = User.find_by(id: user_id)
             if user && user.authenticated?(cookies[:remember_token])
                 user 
             end

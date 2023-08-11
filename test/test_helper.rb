@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def log_in_as(user)
-    session[:user_id] = user.email
+    session[:user_id] = user.id
   end
 
   def is_logged_in?

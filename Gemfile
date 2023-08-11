@@ -18,6 +18,12 @@ gem 'bcrypt', '~> 3.1.16'
 #bootstrap
 gem "bootstrap-sass"
 
+#kaminari
+gem "kaminari"
+
+#faker
+gem 'faker'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

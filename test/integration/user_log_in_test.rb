@@ -38,14 +38,18 @@ class UserLogOut < UserLogIn
   end
 end
 
-class UserLogOutTest < UserLogOut
+class UserLogOutTest < UserLogIn
   #ログアウト
   test "valid logout" do
+    post session_path, params: { session: { email:    @user.email,
+                                            password: 'password' } }
+    
+    assert is_logged_in?
     delete session_path
+    assert_redirected_to root_url
     assert_response :see_other
     assert_not is_logged_in?
-    assert_redirected_to root_url
-    # 2番目のウィンドウでログアウトをクリックするユーザーをシミュレートする
+    #2番目のウィンドウでログアウトをクリックするユーザーをシミュレートする
     delete session_path
     follow_redirect!
     assert_select "a[href=?]", new_session_path
