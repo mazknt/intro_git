@@ -13,6 +13,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #destroy 正常
   test "#destroy valid" do
     get users_path
+    assert is_logged_in?
     User.page(1).each do |user|
       if user != @user
         assert_select "a[href=?]", user_path(user), method: :destroy

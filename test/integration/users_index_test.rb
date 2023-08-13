@@ -14,6 +14,9 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     users = User.page(1)
     users.each do |user|
       assert_select "a[href=?]", user_path(user)
+      if user!=current_user 
+        assert_select "a[href=?]", user_path(user), method: :delete
+      end
     end
   end
 

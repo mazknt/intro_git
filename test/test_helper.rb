@@ -11,11 +11,14 @@ class ActiveSupport::TestCase
 
   #Application helper 
   include ApplicationHelper
+  include SessionsHelper
 
   # Add more helper methods to be used by all tests here...
 
   def log_in_as(user)
-    session[:user_id] = user.id
+    #session[:user_id] = user.id
+    post session_path, params: { session: { email: user.email,
+      password: "password"} }
   end
 
   def is_logged_in?

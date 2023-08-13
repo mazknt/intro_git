@@ -5,7 +5,8 @@ class User < ApplicationRecord
     validates :password, presence: true, length: { minimum:6}, allow_nil: true
             before_save :email_downcase
     has_secure_password
-    attr_accessor :remember_token
+    attr_accessor :remember_token, :activation_token
+    before_save :activate
 
     def remember
         self.remember_token = User.new_token
@@ -19,9 +20,9 @@ class User < ApplicationRecord
         
     end
 
-    def authenticated?(token)
-        return false if remember_digest.nil?
-        BCrypt::Password.new(remember_digest).is_password?(token)
+    def authenticated?(column, token)
+        return false if self.send("#{column}_digest").nil?
+        BCrypt::Password.new(self.send("#{column}_digest")).is_password?(token)
     end
 
     def User.new_token
@@ -37,5 +38,10 @@ class User < ApplicationRecord
     private 
         def email_downcase
             self.email = email.downcase
+        end
+
+        def activate
+            self.activation_token = User.new_token
+            self.activation_digest = User.digest(activation_token)
         end
 end

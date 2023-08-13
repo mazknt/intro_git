@@ -5,7 +5,7 @@ module SessionsHelper
 
     def log_in(user, remember_me) 
         remember(user) if remember_me == "1"
-        session[:user_id] = user.id
+        session[:user_id] = user.id 
     end
 
     def logged_in?
@@ -26,7 +26,7 @@ module SessionsHelper
         elsif !cookies[:user_id].nil?
             user_id = cookies.encrypted[:user_id]
             user = User.find_by(id: user_id)
-            if user && user.authenticated?(cookies[:remember_token])
+            if user && user.authenticated?(:remember, cookies[:remember_token])
                 user 
             end
         end

@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get "/help", to: "static_pages#help"
   resources :users
   resource :session, only: [:new, :create, :destroy]
+  resources :activate_accounts, only: [:edit]
 end

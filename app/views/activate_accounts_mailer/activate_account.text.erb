@@ -1,0 +1,3 @@
+Hi, <%=@user.name%>%
+To activate your account, check below URL
+<%=edit_activate_account_url(@user.activation_token, email: @user.email)%>
