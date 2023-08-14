@@ -5,7 +5,7 @@ class User < ApplicationRecord
     validates :password, presence: true, length: { minimum:6}, allow_nil: true
             before_save :email_downcase
     has_secure_password
-    attr_accessor :remember_token, :activation_token
+    attr_accessor :remember_token, :activation_token, :reset_token
     before_save :activate
 
     def remember
@@ -31,6 +31,12 @@ class User < ApplicationRecord
 
     def User.digest(token)
         BCrypt::Password.create(token)
+    end
+
+    def reset_password
+        self.reset_token = User.new_token
+        #self.reset_digest = User.digest(reset_token)
+        update_attribute(:reset_digest, User.digest(reset_token))
     end
 
     

@@ -1,0 +1,11 @@
+<% provide(:totle, "To reset your password") %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1>send a mail</h1>
+    <%= form_with(url: reset_passwords_url, scope: :reset_password) do |f| %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.submit "send a mail to reset password", class:"btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

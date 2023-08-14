@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             flash[:success] = "check your email to activate your account"
-            ActivateAccountsMailer.activate_account(@user).deliver_now
+            UsersMailer.activate_account(@user).deliver_now
             redirect_to root_path
         else
             render "new", states: :unprocessable_entity
