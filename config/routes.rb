@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :activate_accounts, only: [:edit]
   resources :reset_passwords, only: [:new, :create, :edit, :update]
+  resources :microposts, only: [:create, :destroy]
 end

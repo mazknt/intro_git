@@ -7,6 +7,7 @@ class User < ApplicationRecord
     has_secure_password
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :activate
+    has_many :microposts, dependent: :destroy
 
     def remember
         self.remember_token = User.new_token
