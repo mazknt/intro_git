@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :is_logged_in?, only: [:edit, :update, :index, :destroy]
+    before_action :is_logged_in?, only: [:edit, :update, :index, :destroy, :following, :followers]
     before_action :correct_user?, only: [:edit, :update]
     before_action :is_admin?, only: [:destroy]
     
@@ -47,6 +47,20 @@ class UsersController < ApplicationController
         user.destroy
         flash[:success] = "User deleted successfully"
         redirect_to users_path, status: :see_other
+    end
+
+    def following
+        @title =  "following"
+        @user = User.find(params[:id])
+        @users = @user.following.page(params[:page]).per[30]
+        render "show_follow", status: :unprocessable_entity
+    end
+
+    def followers
+        @title =  "followers"
+        @user = User.find(params[:id])
+        @users = @user.follower.page(params[:page]).per[30]
+        render "show_follow", status: :unprocessable_entity
     end
 
     private

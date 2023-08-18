@@ -8,6 +8,14 @@ class User < ApplicationRecord
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save :activate
     has_many :microposts, dependent: :destroy
+    has_many :active_relationships, class_name: "Relationship",
+                                    foreign_key: "follower_id",
+                                    dependent: :destroy
+    has_many :passive_relationships, class_name: "Relationship",
+                                    foreign_key: "following_id",
+                                    dependent: :destroy
+    has_many :followings, through: :active_relationships
+    has_many :followers, through: :passive_relationships
 
     def remember
         self.remember_token = User.new_token
@@ -38,6 +46,18 @@ class User < ApplicationRecord
         self.reset_token = User.new_token
         #self.reset_digest = User.digest(reset_token)
         update_attribute(:reset_digest, User.digest(reset_token))
+    end
+
+    def follow(user)
+        self.following << user unless self == other_user
+    end
+
+    def unfollow(user)
+        self.following.delete(user)
+    end
+
+    def following?(user)
+        self.following.include?(user)
     end
 
     
